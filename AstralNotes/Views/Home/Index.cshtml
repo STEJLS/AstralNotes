@@ -1,4 +1,5 @@
-﻿<!doctype html>
+﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+<!doctype html>
 <html>
 <head>
     <title>Главная</title>
@@ -6,6 +7,9 @@
     <meta name="viewport" content="width=device-width">
 </head>
 <body>
+    <form method="post" asp-controller="Account" asp-action="Logout">
+        <input type="submit" value="Выход" />
+    </form>
     <h2>Тут будут все заметки пользователя</h2>
 </body>
 </html>

@@ -1,0 +1,31 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Linq;
+using System.Threading.Tasks;
+
+namespace AstralNotes.ViewModels
+{
+    public class RegistrationViewModel
+    {
+        [Required]
+        [Display(Name = "Логин")]
+        public string UserName { get; set; }
+
+        [Required]
+        [Display(Name = "Email")]
+        [DataType(DataType.EmailAddress)]
+        public string Email { get; set; }
+
+        [Required]
+        [DataType(DataType.Password)]
+        [Display(Name = "Пароль")]
+        public string Password { get; set; }
+
+        [Required]
+        [Display(Name = "Подтверждение пароля")]
+        [DataType(DataType.Password)]
+        [Compare("Password", ErrorMessage = "Пароли не совпадают")]
+        public string PasswordConfirm { get; set; }
+    }
+}

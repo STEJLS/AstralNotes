@@ -95,5 +95,46 @@ namespace AstralNotes.Controllers
 
             return RedirectToAction("Index", "Home");
         }
+
+        public async Task<IActionResult> Edit([FromQuery] int? Id)
+        {
+            if (Id != null)
+            {
+                IdentityUser user = await _userManager.FindByNameAsync(User.Identity.Name);
+                Note note = _dbContext.Notes.FirstOrDefault(n => n.Id.Equals(Id) && n.User.Id.Equals(user.Id));
+                if (note != null)
+                {
+                    return View(new NoteViewModel { Id = note.Id, Text = note.Text, Theme = note.Theme});
+                }
+            }
+
+            return RedirectToAction("Index", "Home");
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Edit(NoteViewModel model, [FromQuery] int? id,  UniqueImageService imageService)
+        {
+            if (ModelState.IsValid && id != null)
+            {
+                IdentityUser user = await _userManager.FindByNameAsync(User.Identity.Name);
+                Note note = _dbContext.Notes.FirstOrDefault(n => n.Id.Equals(id) && n.User.Id.Equals(user.Id));
+                if (note != null)
+                {
+                    note.Theme = model.Theme;
+                    note.Text = model.Text;
+                    note.Image = imageService.Get(model.Theme + model.Text);
+                    _dbContext.Update(note);
+                    await _dbContext.SaveChangesAsync();
+                    ViewBag.Full = true;
+                    return View("Show", note);
+                }
+                else
+                {
+                    return RedirectToAction("Index", "Home");
+                }
+            }
+
+            return View(model);
+        }
     }
 }

@@ -1,10 +1,12 @@
 ﻿@model AstralNotes.DAL.Models.Note
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
 @Html.ActionLink(@Model.Theme, "Show", "Note", new { id = Model.Id })
 @Html.ActionLink("Удалить", "Delete", "Note", new { id = Model.Id })
 
 @if (ViewBag.Full!=null && ViewBag.Full)
 {
+    @Html.ActionLink("Редактировать", "Edit", "Note", new { id = Model.Id }, null)
     <p>@Model.Text</p>
 }
 else

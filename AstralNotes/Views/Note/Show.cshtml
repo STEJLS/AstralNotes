@@ -1,0 +1,23 @@
+﻿@model AstralNotes.DAL.Models.Note
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+<!doctype html>
+<html>
+<head>
+    <title>@Model.Theme</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width">
+</head>
+<body>
+    <form method="post" asp-controller="Account" asp-action="Logout">
+        <input type="submit" value="Выход" />
+    </form>
+    @Html.ActionLink("Главная", "Index", "Home")
+
+    <h2>@Model.Theme</h2>
+    <p>@Model.Text</p>
+    <img src="data:image/svg+xml;base64,@System.Convert.ToBase64String(Model.Image)" width="80" height="80" />
+    
+
+
+</body>
+</html>

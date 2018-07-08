@@ -5,7 +5,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="DAL\Models\" />
     <Folder Include="wwwroot\" />
   </ItemGroup>
 

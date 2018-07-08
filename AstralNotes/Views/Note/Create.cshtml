@@ -1,0 +1,20 @@
+﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@model AstralNotes.ViewModels.NoteViewModel
+<h2>Создание новой заметки</h2>
+@Html.ActionLink("Главная", "Index", "Home")
+<form method="post" asp-controller="Note" asp-action="Create">
+    <div asp-validation-summary="ModelOnly"></div>
+    <div>
+        <label asp-for="Theme"></label><br />
+        <input asp-for="Theme" />
+        <span asp-validation-for="Theme"></span>
+    </div>
+    <div>
+        <label asp-for="Text"></label><br />
+        <input asp-for="Text" />
+        <span asp-validation-for="Text"></span>
+    </div>
+    <div>
+        <input type="submit" value="Создать" />
+    </div>
+</form>

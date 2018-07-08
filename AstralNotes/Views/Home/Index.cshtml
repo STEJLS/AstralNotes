@@ -16,23 +16,8 @@
     <h2>Тут будут все заметки пользователя</h2>
     @foreach (var note in Model)
     {
-        @Html.ActionLink(note.Theme, "Show", "Note", new { id = note.Id })
-
-        @Html.ActionLink("Удалить", "Delete", "Note", new { id = note.Id })
-        <h2>@note.Theme</h2>
-        @if (note.Text.Length > 50)
-        {
-
-            string str = @note.Text.Substring(0, 50);
-            <p>@str...</p>
-        }
-        else
-        {
-            <p>@note.Text</p>
-        }
-        <img src="data:image/svg+xml;base64,@System.Convert.ToBase64String(note.Image)" width="80" height="80" />
+        @Html.Partial("~/Views/Note/Note.cshtml", note)
     }
-
 
 </body>
 </html>

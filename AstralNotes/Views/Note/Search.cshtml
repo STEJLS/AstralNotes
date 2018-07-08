@@ -3,7 +3,7 @@
 <!doctype html>
 <html>
 <head>
-    <title>Главная</title>
+    <title>Результат поиска</title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width">
 </head>
@@ -16,10 +16,10 @@
         <input type="text" name="searchString"></input>
         <input type="submit" value="Поиск" />
     </form>
-
+    @Html.ActionLink("Галавная", "Index", "Home")
     @Html.ActionLink("Создать новую заметку", "Create", "Note")
 
-    <h2>Тут будут все заметки пользователя</h2>
+    <h2>Результат поиска:</h2>
     @foreach (var note in Model)
     {
         @Html.Partial("~/Views/Note/Note.cshtml", note)

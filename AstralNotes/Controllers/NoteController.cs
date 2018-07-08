@@ -54,9 +54,9 @@ namespace AstralNotes.Controllers
 
         public async Task<IActionResult> Show([FromQuery] int? Id)
         {
-            IdentityUser user = await _userManager.FindByNameAsync(User.Identity.Name);
             if (Id != null)
             {
+                IdentityUser user = await _userManager.FindByNameAsync(User.Identity.Name);
                 Note note = _dbContext.Notes.FirstOrDefault(n => n.Id.Equals(Id) && n.User.Id.Equals(user.Id));
                 if (note != null)
                 {
@@ -69,9 +69,9 @@ namespace AstralNotes.Controllers
 
         public async Task<IActionResult> Delete([FromQuery] int? Id)
         {
-            IdentityUser user = await _userManager.FindByNameAsync(User.Identity.Name);
             if (Id != null)
             {
+                IdentityUser user = await _userManager.FindByNameAsync(User.Identity.Name);
                 Note note = _dbContext.Notes.FirstOrDefault(n => n.Id.Equals(Id) && n.User.Id.Equals(user.Id));
                 if (note != null)
                 {
@@ -83,6 +83,17 @@ namespace AstralNotes.Controllers
             return RedirectToAction("Index", "Home");
         }
 
+        [HttpPost]
+        public async Task<IActionResult> Search(string searchString)
+        {
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                IdentityUser user = await _userManager.FindByNameAsync(User.Identity.Name);
+                List<Note> notes = _dbContext.Notes.Where(n => (n.Text.Contains(searchString) || n.Theme.Contains(searchString)) && n.User.Id.Equals(user.Id)).ToList();
+                return View("Search", notes);
+            }
 
+            return RedirectToAction("Index", "Home");
+        }
     }
 }

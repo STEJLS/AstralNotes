@@ -12,11 +12,11 @@
         <input type="submit" value="Выход" />
     </form>
     @Html.ActionLink("Главная", "Index", "Home")
-
+    @Html.ActionLink("Удалить", "Delete", "Note",  new { id = Model.Id })
     <h2>@Model.Theme</h2>
     <p>@Model.Text</p>
     <img src="data:image/svg+xml;base64,@System.Convert.ToBase64String(Model.Image)" width="80" height="80" />
-    
+
 
 
 </body>

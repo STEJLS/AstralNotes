@@ -17,6 +17,8 @@
     @foreach (var note in Model)
     {
         @Html.ActionLink(note.Theme, "Show", "Note", new { id = note.Id })
+
+        @Html.ActionLink("Удалить", "Delete", "Note", new { id = note.Id })
         <h2>@note.Theme</h2>
         @if (note.Text.Length > 50)
         {

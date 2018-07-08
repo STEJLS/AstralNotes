@@ -66,5 +66,23 @@ namespace AstralNotes.Controllers
 
             return RedirectToAction("Index", "Home");
         }
+
+        public async Task<IActionResult> Delete([FromQuery] int? Id)
+        {
+            IdentityUser user = await _userManager.FindByNameAsync(User.Identity.Name);
+            if (Id != null)
+            {
+                Note note = _dbContext.Notes.FirstOrDefault(n => n.Id.Equals(Id) && n.User.Id.Equals(user.Id));
+                if (note != null)
+                {
+                    _dbContext.Notes.Remove(note);
+                    await _dbContext.SaveChangesAsync();
+                }
+            }
+
+            return RedirectToAction("Index", "Home");
+        }
+
+
     }
 }

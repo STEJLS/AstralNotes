@@ -4,7 +4,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using AstralNotes.ViewModels;
-using System.Net.Http;
 using Microsoft.AspNetCore.Authorization;
 using AstralNotes.DAL;
 using AstralNotes.Services;
@@ -18,6 +17,7 @@ namespace AstralNotes.Controllers
     {
         private DataBaseContext _dbContext;
         private UserManager<IdentityUser> _userManager;
+
         public NoteController(DataBaseContext dbContext, UserManager<IdentityUser> userManager)
         {
             _userManager = userManager;
@@ -89,7 +89,7 @@ namespace AstralNotes.Controllers
             if (!String.IsNullOrEmpty(searchString))
             {
                 IdentityUser user = await _userManager.FindByNameAsync(User.Identity.Name);
-                List<Note> notes = _dbContext.Notes.Where(n => (n.Text.Contains(searchString) || n.Theme.Contains(searchString)) && n.User.Id.Equals(user.Id)).ToList();
+                List<Note> notes = _dbContext.Notes.Where(n => (n.Text.ToLower().Contains(searchString.ToLower() ) || n.Theme.ToLower().Contains(searchString.ToLower())) && n.User.Id.Equals(user.Id)).ToList();
                 return View("Search", notes);
             }
 
@@ -125,13 +125,8 @@ namespace AstralNotes.Controllers
                     note.Image = imageService.Get(model.Theme + model.Text);
                     _dbContext.Update(note);
                     await _dbContext.SaveChangesAsync();
-                    ViewBag.Full = true;
-                    return View("Show", note);
                 }
-                else
-                {
-                    return RedirectToAction("Index", "Home");
-                }
+                return RedirectToAction("Index", "Home");
             }
 
             return View(model);

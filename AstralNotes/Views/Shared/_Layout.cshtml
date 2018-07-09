@@ -1,0 +1,58 @@
+﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="~/css/Styles.css" />
+</head>
+<body>
+    <header class="header">
+        <div id="mainmenu">
+            <ul>
+                @if (User.Identity.IsAuthenticated)
+                {
+                    <li>
+                        @Html.ActionLink("Главная", "Index", "Home")
+                    </li>
+                    <li>
+                        @Html.ActionLink("Новая заметка", "Create", "Note")
+                    </li>
+                    <li>
+                        <div class="menu_item">
+                            <form method="post" asp-controller="Account" asp-action="Logout">
+                                <input type="submit" value="Выход" />
+                            </form>
+                        </div>
+                    </li>
+                    <li class="header-menu-item">
+                        <div class="menu_item">
+                            <form action="~/Note/Search" method="post">
+                                <input type="text" name="searchString"></input>
+                                <input type="submit" value="Поиск" />
+                            </form>
+                            <a asp-controller="Account" asp-action="Logout">Выйти</a>
+                        </div>
+                    </li>
+                }
+                else
+                {
+                    <li>
+                        @Html.ActionLink("Авторизация", "Login", "Account")
+                    </li>
+                    <li>
+                        @Html.ActionLink("Регистрация", "Registration", "Account")
+                    </li>
+                }
+            </ul>
+        </div>
+    </header>
+
+
+        
+    <section>
+        <div class="main_content">
+            @RenderBody()
+        </div>
+    </section>
+</body>
+</html>

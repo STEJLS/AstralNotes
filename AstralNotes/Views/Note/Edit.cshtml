@@ -1,20 +1,26 @@
 ﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 @model AstralNotes.ViewModels.NoteViewModel
-<h2>Редактирование заметки</h2>
-@Html.ActionLink("Главная", "Index", "Home")
-<form method="post" asp-controller="Note" asp-action="Edit" asp-route-id="@Model.Id">
-    <div asp-validation-summary="ModelOnly"></div>
-    <div>
-        <label asp-for="@Model.Theme"></label><br />
-        <input asp-for="@Model.Theme" />
-        <span asp-validation-for="@Model.Theme"></span>
-    </div>
-    <div>
-        <label asp-for="@Model.Text"></label><br />
-        <input asp-for="@Model.Text" />
-        <span asp-validation-for="@Model.Text"></span>
-    </div>
-    <div>
-        <input type="submit" value="Сохранить" />
-    </div>
-</form>
+@{
+    Layout = "_Layout";
+}
+<div class="center2">
+    <h2>Редактирование заметки</h2>
+    <form method="post" asp-controller="Note" asp-action="Edit" asp-route-id="@Model.Id">
+        <div asp-validation-summary="ModelOnly"></div>
+        <div>
+            <label asp-for="Theme"></label><br />
+            <textarea rows="1" cols="45" name="Theme" asp-for="Theme"></textarea>
+            <br />
+            <span asp-validation-for="Theme"></span>
+        </div>
+        <div>
+            <label asp-for="Text"></label><br />
+            <textarea rows="10" cols="45" name="Text" asp-for="Text"></textarea>
+            <br />
+            <span asp-validation-for="Text"></span>
+        </div>
+        <div>
+            <input type="submit" value="Сохранить" />
+        </div>
+    </form>
+</div>

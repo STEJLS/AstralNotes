@@ -1,14 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http;
-using System.Threading.Tasks;
+﻿using System.Net.Http;
 
 namespace AstralNotes.Services
 {
     public class UniqueImageService
     {
         private readonly string _url = "https://avatars.dicebear.com/v2/identicon";
+
         public byte[] Get(string seed)
         {
             if (seed.Length > 300)

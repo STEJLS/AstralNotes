@@ -2,6 +2,9 @@
 
 namespace AstralNotes.ViewModels
 {
+    /// <summary>
+    /// Модель для регистрации
+    /// </summary>
     public class RegistrationViewModel
     {
         [Required]

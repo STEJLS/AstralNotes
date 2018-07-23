@@ -46,7 +46,7 @@ namespace AstralNotes.Controllers
 
                 await _dbContext.Notes.AddAsync(note);
                 await _dbContext.SaveChangesAsync();
-                return RedirectToAction("Index", "Home");                 
+                return RedirectToAction("Index", "Home");
             }
 
             return View(model);
@@ -89,7 +89,9 @@ namespace AstralNotes.Controllers
             if (!String.IsNullOrEmpty(searchString))
             {
                 IdentityUser user = await _userManager.FindByNameAsync(User.Identity.Name);
-                List<Note> notes = _dbContext.Notes.Where(n => (n.Text.ToLower().Contains(searchString.ToLower() ) || n.Theme.ToLower().Contains(searchString.ToLower())) && n.User.Id.Equals(user.Id)).ToList();
+                List<Note> notes = _dbContext.Notes.Where(n =>
+                    (n.Text.ToLower().Contains(searchString.ToLower()) ||
+                     n.Theme.ToLower().Contains(searchString.ToLower())) && n.User.Id.Equals(user.Id)).ToList();
                 return View("Search", notes);
             }
 
@@ -104,7 +106,7 @@ namespace AstralNotes.Controllers
                 Note note = _dbContext.Notes.FirstOrDefault(n => n.Id.Equals(Id) && n.User.Id.Equals(user.Id));
                 if (note != null)
                 {
-                    return View(new NoteViewModel { Id = note.Id, Text = note.Text, Theme = note.Theme});
+                    return View(new NoteViewModel {Id = note.Id, Text = note.Text, Theme = note.Theme});
                 }
             }
 
@@ -112,7 +114,7 @@ namespace AstralNotes.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Edit(NoteViewModel model, [FromQuery] int? id,  UniqueImageService imageService)
+        public async Task<IActionResult> Edit(NoteViewModel model, [FromQuery] int? id, UniqueImageService imageService)
         {
             if (ModelState.IsValid && id != null)
             {
@@ -126,6 +128,7 @@ namespace AstralNotes.Controllers
                     _dbContext.Update(note);
                     await _dbContext.SaveChangesAsync();
                 }
+
                 return RedirectToAction("Index", "Home");
             }
 

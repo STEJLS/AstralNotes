@@ -11,7 +11,7 @@ namespace AstralNotes.Controllers
     public class HomeController : Controller
     {
         private readonly DataBaseContext _dbContext;
-        private UserManager<IdentityUser> _userManager;
+        private readonly UserManager<IdentityUser> _userManager;
 
         public HomeController(DataBaseContext dbContext, UserManager<IdentityUser> userManager)
         {

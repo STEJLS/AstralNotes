@@ -5,22 +5,32 @@ using System.Threading.Tasks;
 
 namespace AstralNotes.Controllers
 {
+    /// <summary>
+    /// Контроллер управления аккаунтом
+    /// </summary>
     public class AccountController : Controller
     {
         private readonly UserManager<IdentityUser> _userManager;
         private readonly SignInManager<IdentityUser> _signInManager;
 
+        /// <summary />
         public AccountController(UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager)
         {
             _userManager = userManager;
             _signInManager = signInManager;
         }
-
+        
+        /// <summary />
         public IActionResult Registration()
         {
             return View();
         }
 
+        /// <summary>
+        /// Регистрация
+        /// </summary>
+        /// <param name="model" href="RegistrationViewModel" />
+        /// <returns href="IActionResult" />
         [HttpPost]
         public async Task<IActionResult> Registration(RegistrationViewModel model)
         {
@@ -46,11 +56,21 @@ namespace AstralNotes.Controllers
             return View(model);
         }
 
+        /// <summary>
+        /// Авторизация
+        /// </summary>
+        /// <param name="returnUrl">Возвращаемый юрл</param>
+        /// <returns href="IActionResult" />
         public IActionResult Login(string returnUrl = null)
         {
             return View(new LoginViewModel { ReturnUrl = returnUrl });
         }
 
+        /// <summary>
+        /// 123
+        /// </summary>
+        /// <param name="model">123</param>
+        /// <returns>123</returns>
         [HttpPost]
         public async Task<IActionResult> Login(LoginViewModel model)
         {
@@ -85,7 +105,6 @@ namespace AstralNotes.Controllers
             return RedirectToAction("Index", "Home");
         }
     }
-
 }
 
 

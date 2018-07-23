@@ -25,8 +25,8 @@ namespace AstralNotes
 
         public void ConfigureServices(IServiceCollection services)
         {
-
-            services.AddDbContext<DataBaseContext>(options => options.UseNpgsql(Configuration.GetConnectionString("DefaultConnection")));
+            services.AddDbContext<DataBaseContext>(options =>
+                options.UseNpgsql(Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddIdentity<IdentityUser, IdentityRole>(options =>
             {
@@ -34,7 +34,8 @@ namespace AstralNotes
                 options.Password.RequireUppercase = false;
                 options.Password.RequireDigit = false;
                 options.Password.RequireNonAlphanumeric = false;
-            }).AddEntityFrameworkStores<DataBaseContext>();
+            })
+                .AddEntityFrameworkStores<DataBaseContext>();
 
             services.AddScoped<UniqueImageService>();
             services.AddMvc();

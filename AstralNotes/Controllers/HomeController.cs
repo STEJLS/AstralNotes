@@ -1,19 +1,19 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using AstralNotes.DAL;
 using Microsoft.AspNetCore.Identity;
 using System.Linq;
 using System.Threading.Tasks;
+using AstralNotes.Database;
 
 namespace AstralNotes.Controllers
 {
     [Authorize]
     public class HomeController : Controller
     {
-        private readonly DataBaseContext _dbContext;
+        private readonly DatabaseContext _dbContext;
         private readonly UserManager<IdentityUser> _userManager;
 
-        public HomeController(DataBaseContext dbContext, UserManager<IdentityUser> userManager)
+        public HomeController(DatabaseContext dbContext, UserManager<IdentityUser> userManager)
         {
             _dbContext = dbContext;
             _userManager = userManager;

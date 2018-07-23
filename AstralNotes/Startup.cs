@@ -1,16 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using AstralNotes.Database;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
-using AstralNotes.DAL;
 using AstralNotes.Domain;
 using AstralNotes.Services;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 
 namespace AstralNotes
@@ -26,8 +20,7 @@ namespace AstralNotes
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<DataBaseContext>(options =>
-                options.UseNpgsql(Configuration.GetConnectionString("DefaultConnection")));
+            services.AddDatabaseContext(Configuration.GetConnectionString("DefaultConnection"));
 
             services.AddIdentity<IdentityUser, IdentityRole>(options =>
             {
@@ -36,7 +29,7 @@ namespace AstralNotes
                 options.Password.RequireDigit = false;
                 options.Password.RequireNonAlphanumeric = false;
             })
-                .AddEntityFrameworkStores<DataBaseContext>();
+                .AddEntityFrameworkStores<DatabaseContext>();
 
             services.AddScoped<UniqueImageService>();
             services.AddDomainServices();

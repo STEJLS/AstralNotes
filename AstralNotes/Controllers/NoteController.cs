@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AstralNotes.Database;
+using AstralNotes.Domain.Entities;
 using Microsoft.AspNetCore.Mvc;
 using AstralNotes.ViewModels;
 using Microsoft.AspNetCore.Authorization;
-using AstralNotes.DAL;
 using AstralNotes.Services;
-using AstralNotes.DAL.Models;
 using Microsoft.AspNetCore.Identity;
 
 namespace AstralNotes.Controllers
@@ -15,10 +15,10 @@ namespace AstralNotes.Controllers
     [Authorize]
     public class NoteController : Controller
     {
-        private DataBaseContext _dbContext;
+        private DatabaseContext _dbContext;
         private UserManager<IdentityUser> _userManager;
 
-        public NoteController(DataBaseContext dbContext, UserManager<IdentityUser> userManager)
+        public NoteController(DatabaseContext dbContext, UserManager<IdentityUser> userManager)
         {
             _userManager = userManager;
             _dbContext = dbContext;

@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using AstralNotes.Domain;
-using AstralNotes.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 
@@ -31,7 +30,6 @@ namespace AstralNotes
             })
                 .AddEntityFrameworkStores<DatabaseContext>();
 
-            services.AddScoped<UniqueImageService>();
             services.AddDomainServices();
             services.AddMvc();
         }

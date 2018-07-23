@@ -16,7 +16,8 @@ namespace AstralNotes.Domain
         /// <returns>Коллекция сервисов с добавленными сервисами менеджмента</returns>
         public static IServiceCollection AddDomainServices(this IServiceCollection services)
         {
-            services.AddScoped<IExampleService, ExampleService>();
+            services.AddScoped<IUniqueImageService, DicebearImageService>();
+            services.AddScoped<INoteService, NoteService>();
             return services;
         }
     }

@@ -7,4 +7,8 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="2.1.1" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\AstralNotes.Database\AstralNotes.Database.csproj" />
+    <ProjectReference Include="..\AstralNotes.Domain.Entities\AstralNotes.Domain.Entities.csproj" />
+  </ItemGroup>
 </Project>

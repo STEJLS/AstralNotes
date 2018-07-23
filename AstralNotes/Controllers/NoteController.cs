@@ -1,13 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using AstralNotes.Database;
 using AstralNotes.Domain.Entities;
 using Microsoft.AspNetCore.Mvc;
 using AstralNotes.ViewModels;
 using Microsoft.AspNetCore.Authorization;
-using AstralNotes.Services;
+using AstralNotes.Domain.Abstractions;
 using Microsoft.AspNetCore.Identity;
 
 namespace AstralNotes.Controllers
@@ -17,11 +15,13 @@ namespace AstralNotes.Controllers
     {
         private DatabaseContext _dbContext;
         private UserManager<IdentityUser> _userManager;
+        private readonly INoteService _noteService;
 
-        public NoteController(DatabaseContext dbContext, UserManager<IdentityUser> userManager)
+        public NoteController(DatabaseContext dbContext, UserManager<IdentityUser> userManager, INoteService noteService)
         {
             _userManager = userManager;
             _dbContext = dbContext;
+            _noteService = noteService;
         }
 
         public IActionResult Create()
@@ -30,23 +30,12 @@ namespace AstralNotes.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(NoteViewModel model, UniqueImageService imageService)
+        public async Task<IActionResult> Create(NoteViewModel model)
         {
             if (ModelState.IsValid)
             {
-                IdentityUser user = await _userManager.FindByNameAsync(User.Identity.Name);
-
-                Note note = new Note
-                {
-                    User = user,
-                    Theme = model.Theme,
-                    Text = model.Text,
-                    Image = imageService.Get(model.Theme + model.Text)
-                };
-
-                await _dbContext.Notes.AddAsync(note);
-                await _dbContext.SaveChangesAsync();
-                return RedirectToAction("Index", "Home");
+                await _noteService.CreateAsync(model.Theme, model.Text, User);
+                return RedirectToAction("Index", "Home");  
             }
 
             return View(model);
@@ -56,8 +45,7 @@ namespace AstralNotes.Controllers
         {
             if (Id != null)
             {
-                IdentityUser user = await _userManager.FindByNameAsync(User.Identity.Name);
-                Note note = _dbContext.Notes.FirstOrDefault(n => n.Id.Equals(Id) && n.User.Id.Equals(user.Id));
+                var note = await _noteService.GetAsync((int)Id, User);
                 if (note != null)
                 {
                     return View(note);
@@ -71,13 +59,7 @@ namespace AstralNotes.Controllers
         {
             if (Id != null)
             {
-                IdentityUser user = await _userManager.FindByNameAsync(User.Identity.Name);
-                Note note = _dbContext.Notes.FirstOrDefault(n => n.Id.Equals(Id) && n.User.Id.Equals(user.Id));
-                if (note != null)
-                {
-                    _dbContext.Notes.Remove(note);
-                    await _dbContext.SaveChangesAsync();
-                }
+                await _noteService.DeleteAsync((int)Id, User);
             }
 
             return RedirectToAction("Index", "Home");
@@ -88,10 +70,7 @@ namespace AstralNotes.Controllers
         {
             if (!String.IsNullOrEmpty(searchString))
             {
-                IdentityUser user = await _userManager.FindByNameAsync(User.Identity.Name);
-                List<Note> notes = _dbContext.Notes.Where(n =>
-                    (n.Text.ToLower().Contains(searchString.ToLower()) ||
-                     n.Theme.ToLower().Contains(searchString.ToLower())) && n.User.Id.Equals(user.Id)).ToList();
+                var notes = await _noteService.SearchAsync(searchString, User);
                 return View("Search", notes);
             }
 
@@ -102,8 +81,7 @@ namespace AstralNotes.Controllers
         {
             if (Id != null)
             {
-                IdentityUser user = await _userManager.FindByNameAsync(User.Identity.Name);
-                Note note = _dbContext.Notes.FirstOrDefault(n => n.Id.Equals(Id) && n.User.Id.Equals(user.Id));
+                Note note = await _noteService.GetAsync((int)Id, User);
                 if (note != null)
                 {
                     return View(new NoteViewModel {Id = note.Id, Text = note.Text, Theme = note.Theme});
@@ -114,21 +92,11 @@ namespace AstralNotes.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Edit(NoteViewModel model, [FromQuery] int? id, UniqueImageService imageService)
+        public async Task<IActionResult> Edit(NoteViewModel model, [FromQuery] int? id)
         {
             if (ModelState.IsValid && id != null)
             {
-                IdentityUser user = await _userManager.FindByNameAsync(User.Identity.Name);
-                Note note = _dbContext.Notes.FirstOrDefault(n => n.Id.Equals(id) && n.User.Id.Equals(user.Id));
-                if (note != null)
-                {
-                    note.Theme = model.Theme;
-                    note.Text = model.Text;
-                    note.Image = imageService.Get(model.Theme + model.Text);
-                    _dbContext.Update(note);
-                    await _dbContext.SaveChangesAsync();
-                }
-
+                await _noteService.EditAsync(model.Theme, model.Text, (int)id, User);
                 return RedirectToAction("Index", "Home");
             }
 

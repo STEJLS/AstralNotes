@@ -1,9 +1,9 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Identity;
-using System.Linq;
 using System.Threading.Tasks;
 using AstralNotes.Database;
+using AstralNotes.Domain.Abstractions;
 
 namespace AstralNotes.Controllers
 {
@@ -12,17 +12,18 @@ namespace AstralNotes.Controllers
     {
         private readonly DatabaseContext _dbContext;
         private readonly UserManager<IdentityUser> _userManager;
+        private readonly INoteService _noteService;
 
-        public HomeController(DatabaseContext dbContext, UserManager<IdentityUser> userManager)
+        public HomeController(DatabaseContext dbContext, UserManager<IdentityUser> userManager, INoteService noteService)
         {
             _dbContext = dbContext;
             _userManager = userManager;
+            _noteService = noteService;
         }
         
         public async Task<IActionResult> Index()
         {
-            string id = (await _userManager.GetUserAsync(User)).Id;
-            var notes = _dbContext.Notes.Where(n => n.User.Id.Equals(id)).ToList();
+            var notes = await _noteService.GetAllAsync(User);
             return View(notes);
         }
     }

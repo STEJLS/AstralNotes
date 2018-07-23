@@ -3,13 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27703.2026
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AstralNotes", "AstralNotes\AstralNotes.csproj", "{B9CCD3A3-3458-4A31-85DA-1DBECCD80C04}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AstralNotes", "AstralNotes\AstralNotes.csproj", "{B9CCD3A3-3458-4A31-85DA-1DBECCD80C04}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AstralNotes.Domain", "AstralNotes.Domain\AstralNotes.Domain.csproj", "{F3B2268C-DBD9-405D-9060-4044C0B10A15}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AstralNotes.Domain", "AstralNotes.Domain\AstralNotes.Domain.csproj", "{F3B2268C-DBD9-405D-9060-4044C0B10A15}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AstralNotes.Database", "AstralNotes.Database\AstralNotes.Database.csproj", "{EEEDC544-C11E-4EAD-A3D5-D597630FD16B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AstralNotes.Database", "AstralNotes.Database\AstralNotes.Database.csproj", "{EEEDC544-C11E-4EAD-A3D5-D597630FD16B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AstralNotes.Domain.Entities", "AstralNotes.Domain.Entities\AstralNotes.Domain.Entities.csproj", "{4EC6B95D-41A3-4927-B5E3-16BD76F3C960}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AstralNotes.Domain.Entities", "AstralNotes.Domain.Entities\AstralNotes.Domain.Entities.csproj", "{4EC6B95D-41A3-4927-B5E3-16BD76F3C960}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

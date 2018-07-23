@@ -1,11 +1,14 @@
 ﻿using System.Net.Http;
+using AstralNotes.Domain.Abstractions;
 
-namespace AstralNotes.Services
+namespace AstralNotes.Domain.Services
 {
-    public class UniqueImageService
+    /// <inheritdoc />
+    public class DicebearImageService : IUniqueImageService
     {
         private readonly string _url = "https://avatars.dicebear.com/v2/identicon";
 
+        /// <inheritdoc />
         public byte[] Get(string seed)
         {
             if (seed.Length > 300)

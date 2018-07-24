@@ -2,6 +2,8 @@
 using Microsoft.AspNetCore.Identity;
 using AstralNotes.ViewModels;
 using System.Threading.Tasks;
+using AstralNotes.Domain.Abstractions;
+using AstralNotes.Domain.Entities;
 
 namespace AstralNotes.Controllers
 {
@@ -10,16 +12,19 @@ namespace AstralNotes.Controllers
     /// </summary>
     public class AccountController : Controller
     {
-        private readonly UserManager<IdentityUser> _userManager;
-        private readonly SignInManager<IdentityUser> _signInManager;
+        private readonly IUserService _userService;
+        private readonly IAuthorizationService _authorizationService;
+        private readonly SignInManager<User> _signInManager;
 
         /// <summary />
-        public AccountController(UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager)
+        public AccountController(IUserService userService, SignInManager<User> signInManager,
+            IAuthorizationService authorizationService)
         {
-            _userManager = userManager;
+            _userService = userService;
             _signInManager = signInManager;
+            _authorizationService = authorizationService;
         }
-        
+
         /// <summary />
         public IActionResult Registration()
         {
@@ -36,21 +41,8 @@ namespace AstralNotes.Controllers
         {
             if (ModelState.IsValid)
             {
-                IdentityUser user = new IdentityUser { UserName = model.UserName, Email = model.Email };
-                var result = await _userManager.CreateAsync(user, model.Password);
-
-                if (result.Succeeded)
-                {
-                    await _signInManager.SignInAsync(user, false);
-                    return RedirectToAction("Index", "Home");
-                }
-                else
-                {
-                    foreach(var error in result.Errors)
-                    {
-                        ModelState.AddModelError(string.Empty, error.Description);
-                    }
-                }
+                await _userService.Create(model.UserName, model.Password, model.Email);
+                return RedirectToAction("Index", "Home");
             }
 
             return View(model);
@@ -63,7 +55,7 @@ namespace AstralNotes.Controllers
         /// <returns href="IActionResult" />
         public IActionResult Login(string returnUrl = null)
         {
-            return View(new LoginViewModel { ReturnUrl = returnUrl });
+            return View(new LoginViewModel {ReturnUrl = returnUrl});
         }
 
         /// <summary>
@@ -76,22 +68,12 @@ namespace AstralNotes.Controllers
         {
             if (ModelState.IsValid)
             {
-                var result = await _signInManager.PasswordSignInAsync(model.UserName, model.Password, model.RememberMe, false);
+                var user = await _authorizationService.Authorize(model.UserName, model.Password);
+                await _signInManager.SignInAsync(user, model.RememberMe);
 
-                if (result.Succeeded)
+                if (string.IsNullOrEmpty(model.ReturnUrl) && Url.IsLocalUrl(model.ReturnUrl))
                 {
-                    if(string.IsNullOrEmpty(model.ReturnUrl) && Url.IsLocalUrl(model.ReturnUrl))
-                    {
-                        return Redirect(model.ReturnUrl);
-                    }
-                    else
-                    {
-                        return RedirectToAction("Index", "Home");
-                    }
-                }
-                else
-                {
-                    ModelState.AddModelError("", "Неправильный логин и (или) пароль");
+                    return Redirect(model.ReturnUrl);
                 }
             }
 
@@ -106,5 +88,3 @@ namespace AstralNotes.Controllers
         }
     }
 }
-
-

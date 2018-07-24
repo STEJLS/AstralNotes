@@ -11,6 +11,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AstralNotes.Database", "Ast
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AstralNotes.Domain.Entities", "AstralNotes.Domain.Entities\AstralNotes.Domain.Entities.csproj", "{4EC6B95D-41A3-4927-B5E3-16BD76F3C960}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AstralNotes.Identity", "AstralNotes.Identity\AstralNotes.Identity.csproj", "{E565FC3B-CE05-496E-8051-9B1EDD673BF0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{4EC6B95D-41A3-4927-B5E3-16BD76F3C960}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4EC6B95D-41A3-4927-B5E3-16BD76F3C960}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4EC6B95D-41A3-4927-B5E3-16BD76F3C960}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E565FC3B-CE05-496E-8051-9B1EDD673BF0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E565FC3B-CE05-496E-8051-9B1EDD673BF0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E565FC3B-CE05-496E-8051-9B1EDD673BF0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E565FC3B-CE05-496E-8051-9B1EDD673BF0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -18,6 +18,8 @@ namespace AstralNotes.Domain
         {
             services.AddScoped<IUniqueImageService, DicebearImageService>();
             services.AddScoped<INoteService, NoteService>();
+            services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IAuthorizationService, AuthorizationService>();
             return services;
         }
     }

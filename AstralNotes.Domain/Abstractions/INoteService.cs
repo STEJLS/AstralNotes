@@ -17,49 +17,43 @@ namespace AstralNotes.Domain.Abstractions
         /// </summary>
         /// <param name="theme"> Тема </param>
         /// <param name="text"> Текст </param>
-        /// <param name="claims"> Claims авторизованного пользователя </param>
         /// <returns> <see cref="IUniqueImageService"/> </returns>
-        Task CreateAsync(string theme, string text, ClaimsPrincipal claims);
+        Task CreateAsync(string theme, string text);
 
         /// <summary>
         /// Возвращает заметку
         /// </summary>
-        /// <param name="id"> Идентификатор заметки </param>
-        /// <param name="claims"> Claims авторизованного пользователя </param>
+        /// <param name="noteGuid"> Идентификатор заметки </param>
         /// <returns></returns>
-        Task<Note> GetAsync(int id, ClaimsPrincipal claims);
+        Task<Note> GetAsync(Guid noteGuid);
 
         /// <summary>
         /// Возвращет все заметки
         /// </summary>
-        /// <param name="claims"> claims авторизованного пользователя </param>
         /// <returns></returns>
-        Task<List<Note>> GetAllAsync(ClaimsPrincipal claims);
+        Task<List<Note>> GetAllAsync();
 
         /// <summary>
         /// Удаляет заметку
         /// </summary>
-        /// <param name="id"> Идентификатор заметки </param>
-        /// <param name="claims"> Claims авторизованного пользователя </param>
+        /// <param name="noteGuid"> Идентификатор заметки </param>
         /// <returns></returns>
-        Task DeleteAsync(int id, ClaimsPrincipal claims);
+        Task DeleteAsync(Guid noteGuid);
 
         /// <summary>
         /// Поиск заметки
         /// </summary>
         /// <param name="searchString"> Строки по которой ведется поиск заметки </param>
-        /// <param name="claims"> Claims авторизованного пользователя </param>
         /// <returns></returns>
-        Task<List<Note>> SearchAsync(string searchString, ClaimsPrincipal claims);
+        Task<List<Note>> SearchAsync(string searchString);
 
         /// <summary>
         /// Редактирование заметки
         /// </summary>
         /// <param name="theme"> Новая тема заметки </param>
         /// <param name="text"> Новый текст заметки </param>
-        /// <param name="id"> Идентификатор заметки </param>
-        /// <param name="claims"> Claims авторизованного пользователя </param>
+        /// <param name="noteGuid"> Идентификатор заметки </param>
         /// <returns></returns>
-        Task EditAsync(string theme, string text, int id, ClaimsPrincipal claims);
+        Task EditAsync(string theme, string text, Guid noteGuid);
     }
 }

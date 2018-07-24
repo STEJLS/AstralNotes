@@ -2,15 +2,15 @@
 @model Note
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 
-@Html.ActionLink("Удалить", "Delete", "Note", new { id = Model.Id })
-@Html.ActionLink("Редактировать", "Edit", "Note", new { id = Model.Id }, null)
+@Html.ActionLink("Удалить", "Delete", "Note", new { noteGuid = Model.NoteGuid })
+@Html.ActionLink("Редактировать", "Edit", "Note", new { noteGuid = Model.NoteGuid }, null)
 
 <div class="center">
     <div class="image_svg">
         <img src="data:image/svg+xml;base64,@System.Convert.ToBase64String(Model.Image)" width="150px" height="150px" align="left" />
     </div>
     <ul class="text_note">
-        <li>Тема: @Html.ActionLink(@Model.Theme, "Show", "Note", new { id = Model.Id })</li>
+        <li>Тема: @Html.ActionLink(@Model.Theme, "Show", "Note", new { noteGuid = Model.NoteGuid })</li>
         <li>
             Содержание:
             @if (ViewBag.Full != null && ViewBag.Full)

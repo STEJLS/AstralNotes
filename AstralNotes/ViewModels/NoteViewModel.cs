@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc.ModelBinding;
+﻿using System;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 using System.ComponentModel.DataAnnotations;
 
 namespace AstralNotes.ViewModels
@@ -6,7 +7,7 @@ namespace AstralNotes.ViewModels
     public class NoteViewModel
     {
         [BindNever]
-        public int Id { get; set; }
+        public Guid NoteGuid { get; set; }
 
         [Required(ErrorMessage = "Укажите тему")]
         [StringLength(50, MinimumLength = 3, ErrorMessage = "Длина строки должна быть от 3 до 50 символов")]

@@ -13,14 +13,10 @@ namespace AstralNotes.Controllers
     [Authorize]
     public class NoteController : Controller
     {
-        private DatabaseContext _dbContext;
-        private UserManager<IdentityUser> _userManager;
         private readonly INoteService _noteService;
 
-        public NoteController(DatabaseContext dbContext, UserManager<IdentityUser> userManager, INoteService noteService)
+        public NoteController(INoteService noteService)
         {
-            _userManager = userManager;
-            _dbContext = dbContext;
             _noteService = noteService;
         }
 
@@ -34,18 +30,18 @@ namespace AstralNotes.Controllers
         {
             if (ModelState.IsValid)
             {
-                await _noteService.CreateAsync(model.Theme, model.Text, User);
-                return RedirectToAction("Index", "Home");  
+                await _noteService.CreateAsync(model.Theme, model.Text);
+                return RedirectToAction("Index", "Home");
             }
 
             return View(model);
         }
 
-        public async Task<IActionResult> Show([FromQuery] int? Id)
+        public async Task<IActionResult> Show([FromQuery] Guid? NoteGuid)
         {
-            if (Id != null)
+            if (NoteGuid != null)
             {
-                var note = await _noteService.GetAsync((int)Id, User);
+                var note = await _noteService.GetAsync((Guid) NoteGuid);
                 if (note != null)
                 {
                     return View(note);
@@ -55,11 +51,11 @@ namespace AstralNotes.Controllers
             return RedirectToAction("Index", "Home");
         }
 
-        public async Task<IActionResult> Delete([FromQuery] int? Id)
+        public async Task<IActionResult> Delete([FromQuery] Guid? NoteGuid)
         {
-            if (Id != null)
+            if (NoteGuid != null)
             {
-                await _noteService.DeleteAsync((int)Id, User);
+                await _noteService.DeleteAsync((Guid) NoteGuid);
             }
 
             return RedirectToAction("Index", "Home");
@@ -70,21 +66,21 @@ namespace AstralNotes.Controllers
         {
             if (!String.IsNullOrEmpty(searchString))
             {
-                var notes = await _noteService.SearchAsync(searchString, User);
+                var notes = await _noteService.SearchAsync(searchString);
                 return View("Search", notes);
             }
 
             return RedirectToAction("Index", "Home");
         }
 
-        public async Task<IActionResult> Edit([FromQuery] int? Id)
+        public async Task<IActionResult> Edit([FromQuery] Guid? NoteGuid)
         {
-            if (Id != null)
+            if (NoteGuid != null)
             {
-                Note note = await _noteService.GetAsync((int)Id, User);
+                Note note = await _noteService.GetAsync((Guid) NoteGuid);
                 if (note != null)
                 {
-                    return View(new NoteViewModel {Id = note.Id, Text = note.Text, Theme = note.Theme});
+                    return View(new NoteViewModel {NoteGuid = note.NoteGuid, Text = note.Text, Theme = note.Theme});
                 }
             }
 
@@ -92,11 +88,11 @@ namespace AstralNotes.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Edit(NoteViewModel model, [FromQuery] int? id)
+        public async Task<IActionResult> Edit(NoteViewModel model, [FromQuery] Guid? noteGuid)
         {
-            if (ModelState.IsValid && id != null)
+            if (ModelState.IsValid && noteGuid != null)
             {
-                await _noteService.EditAsync(model.Theme, model.Text, (int)id, User);
+                await _noteService.EditAsync(model.Theme, model.Text, (Guid) noteGuid);
                 return RedirectToAction("Index", "Home");
             }
 

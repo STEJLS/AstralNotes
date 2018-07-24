@@ -12,5 +12,6 @@
   <ItemGroup>
     <ProjectReference Include="..\AstralNotes.Database\AstralNotes.Database.csproj" />
     <ProjectReference Include="..\AstralNotes.Domain\AstralNotes.Domain.csproj" />
+    <ProjectReference Include="..\AstralNotes.Identity\AstralNotes.Identity.csproj" />
   </ItemGroup>
 </Project>

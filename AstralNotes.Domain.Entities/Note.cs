@@ -1,4 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.AspNetCore.Identity;
 
 namespace AstralNotes.Domain.Entities
@@ -12,11 +14,13 @@ namespace AstralNotes.Domain.Entities
         /// Идентификатор
         /// </summary>
         [Key] 
-        public int Id { get; set; }
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
+        public Guid NoteGuid { get; set; }
         /// <summary>
-        /// Пользователь
+        /// Идентификатор пользователя
         /// </summary>
-        public IdentityUser User { get; set; }
+        [ForeignKey(nameof(User))]
+        public Guid UserGuid { get; set; }
         /// <summary>
         /// Тема
         /// </summary>
@@ -29,5 +33,26 @@ namespace AstralNotes.Domain.Entities
         /// Изображение
         /// </summary>
         public byte[] Image { get; set; }
+        
+        /// <summary>
+        /// 
+        /// </summary>
+        public virtual User User { get; set; }
+
+        /// <summary />
+        public Note()
+        {
+            
+        }
+
+        /// <summary />
+        public Note(Guid userGuid, string theme, string text, byte[] image)
+        {
+            NoteGuid = Guid.NewGuid();
+            UserGuid = userGuid;
+            Theme = theme;
+            Text = text;
+            Image = image;
+        }
     }
 }

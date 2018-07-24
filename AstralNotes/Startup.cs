@@ -1,8 +1,10 @@
-﻿using AstralNotes.Database;
+﻿using System;
+using AstralNotes.Database;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using AstralNotes.Domain;
+using AstralNotes.Identity;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 
@@ -21,15 +23,10 @@ namespace AstralNotes
         {
             services.AddDatabaseContext(Configuration.GetConnectionString("DefaultConnection"));
 
-            services.AddIdentity<IdentityUser, IdentityRole>(options =>
-            {
-                options.Password.RequiredLength = 5;
-                options.Password.RequireUppercase = false;
-                options.Password.RequireDigit = false;
-                options.Password.RequireNonAlphanumeric = false;
-            })
-                .AddEntityFrameworkStores<DatabaseContext>();
-
+            // Identity
+            services.AddSession(options => options.IdleTimeout = TimeSpan.FromHours(24));
+            services.AddAstralNotesIdentity();
+            
             services.AddDomainServices();
             services.AddMvc();
         }
@@ -43,6 +40,7 @@ namespace AstralNotes
 
             app.UseStaticFiles();
             app.UseAuthentication();
+            app.UseSession();
 
             app.UseMvc(routes =>
             {

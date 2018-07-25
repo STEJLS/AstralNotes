@@ -13,18 +13,21 @@ namespace AstralNotes.Domain.Services
     {
         private readonly DatabaseContext _dbContext;
         private readonly SessionContext _sessionContext;
+        private readonly IHashingService _hashingService;
 
         /// <summary />
-        public AuthorizationService(DatabaseContext dbContext, SessionContext sessionContext)
+        public AuthorizationService(DatabaseContext dbContext, SessionContext sessionContext, IHashingService hashingService)
         {
             _dbContext = dbContext;
             _sessionContext = sessionContext;
+            _hashingService = hashingService;
         }
         
         /// <inheritdoc />
         public async Task<User> Authorize(string login, string password)
         {
             login = login.Trim().ToLower();
+            password = _hashingService.Get(password);
 
             var user = await _dbContext.Users.FirstOrDefaultAsync(a => a.Login.ToLower() == login && a.Password == password);
             if (user == null)

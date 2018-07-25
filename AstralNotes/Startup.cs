@@ -5,7 +5,6 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using AstralNotes.Domain;
 using AstralNotes.Identity;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 
 namespace AstralNotes
@@ -32,8 +31,7 @@ namespace AstralNotes
 
             // Identity
             services.AddSession(options => options.IdleTimeout = TimeSpan.FromHours(24));
-            services.AddAstralNotesIdentity();
-            
+            services.AddAstralNotesIdentity();            
             services.AddDomainServices();
             services.AddMvc();
         }

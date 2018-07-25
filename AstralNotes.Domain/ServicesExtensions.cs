@@ -1,5 +1,6 @@
 ﻿using AstralNotes.Domain.Abstractions;
 using AstralNotes.Domain.Services;
+using AstralNotes.Domain.Utils;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -29,7 +30,9 @@ namespace AstralNotes.Domain
                 services.AddScoped<IUniqueImageService, DicebearImageService>();
             }
 
+            services.AddSingleton<SaltManager>();
             services.AddScoped<INoteService, NoteService>();
+            services.AddScoped<IHashingService, HashingService>();
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IAuthorizationService, AuthorizationService>();
             return services;

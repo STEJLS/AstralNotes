@@ -21,11 +21,11 @@ namespace AstralNotes.Domain.Models
         /// </summary>
         public Guid UserGuid { get; set; }
         /// <summary>
-        /// Тема
+        /// Логин
         /// </summary>
         public string Login { get; set; }
         /// <summary>
-        /// Изображение
+        /// Почта
         /// </summary>
         public string Email { get; set; }
 

@@ -14,9 +14,16 @@ namespace AstralNotes
     {
         public IConfiguration Configuration { get; }
 
-        public Startup(IConfiguration configuration)
+        public Startup(IHostingEnvironment env)
         {
-            Configuration = configuration;
+            var builder = new ConfigurationBuilder()
+                .SetBasePath(env.ContentRootPath)
+                .AddJsonFile("appsettings.json", true)
+                .AddJsonFile($"appsettings.{env.EnvironmentName}.json", true)
+                .AddEnvironmentVariables()
+                .AddApplicationInsightsSettings(true);
+
+            Configuration = builder.Build();
         }
 
         public void ConfigureServices(IServiceCollection services)

@@ -1,5 +1,4 @@
 ﻿using AstralNotes.Domain.Abstractions;
-using Microsoft.Extensions.Configuration;
 using System;
 using System.Security.Cryptography;
 using System.Text;

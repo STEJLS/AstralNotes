@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace AstralNotes.Domain.Abstractions
+﻿namespace AstralNotes.Domain.Abstractions
 {
     /// <summary>
     /// Сервис, генерирующий уникальные картинки

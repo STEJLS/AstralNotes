@@ -1,14 +1,10 @@
 ﻿using Microsoft.Extensions.Configuration;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace AstralNotes.Domain.Utils
 {
     /// <summary>
-    /// Класс, предоставляющий общий доступ к переменно "Salt" конфига в виде массива байт
+    /// Класс, предоставляющий общий доступ к переменной "Salt" конфига в виде массива байт
     /// </summary>
     public class SaltManager
     {

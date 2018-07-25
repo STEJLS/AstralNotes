@@ -4,8 +4,6 @@ using System.Threading.Tasks;
 using AstralNotes.Domain.Abstractions;
 using AstralNotes.Database;
 using AstralNotes.Domain.Entities;
-using Microsoft.AspNetCore.Identity;
-using System.Security.Claims;
 using System.Linq;
 using AstralNotes.Domain.Models;
 using Microsoft.EntityFrameworkCore;

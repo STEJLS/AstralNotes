@@ -1,6 +1,4 @@
-﻿using System.Security.Cryptography;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using AstralNotes.Database;
 using AstralNotes.Domain.Abstractions;
 using AstralNotes.Domain.Entities;

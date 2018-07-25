@@ -1,12 +1,10 @@
 ﻿using System;
 using System.Threading.Tasks;
-using AstralNotes.Database;
 using AstralNotes.Domain.Entities;
 using Microsoft.AspNetCore.Mvc;
 using AstralNotes.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using AstralNotes.Domain.Abstractions;
-using Microsoft.AspNetCore.Identity;
 
 namespace AstralNotes.Controllers
 {

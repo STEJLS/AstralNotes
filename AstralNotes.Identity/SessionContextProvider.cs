@@ -1,11 +1,9 @@
 using System;
 using System.Linq;
-using System.Threading.Tasks;
 using AstralNotes.Database;
 using AstralNotes.Domain.Models;
 using AstralNotes.Identity.DependencyInjection;
 using Microsoft.AspNetCore.Http;
-using Microsoft.EntityFrameworkCore;
 
 namespace AstralNotes.Identity
 {

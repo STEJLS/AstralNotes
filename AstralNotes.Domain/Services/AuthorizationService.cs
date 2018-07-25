@@ -3,7 +3,6 @@ using System.Threading.Tasks;
 using AstralNotes.Database;
 using AstralNotes.Domain.Abstractions;
 using AstralNotes.Domain.Entities;
-using AstralNotes.Domain.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace AstralNotes.Domain.Services
@@ -12,14 +11,12 @@ namespace AstralNotes.Domain.Services
     public class AuthorizationService: IAuthorizationService
     {
         private readonly DatabaseContext _dbContext;
-        private readonly SessionContext _sessionContext;
         private readonly IHashingService _hashingService;
 
         /// <summary />
-        public AuthorizationService(DatabaseContext dbContext, SessionContext sessionContext, IHashingService hashingService)
+        public AuthorizationService(DatabaseContext dbContext, IHashingService hashingService)
         {
             _dbContext = dbContext;
-            _sessionContext = sessionContext;
             _hashingService = hashingService;
         }
         

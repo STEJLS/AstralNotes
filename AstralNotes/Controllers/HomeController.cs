@@ -1,8 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Identity;
 using System.Threading.Tasks;
-using AstralNotes.Database;
 using AstralNotes.Domain.Abstractions;
 
 namespace AstralNotes.Controllers

@@ -10,18 +10,14 @@ namespace AstralNotes.Domain.Services
     /// <inheritdoc />
     public class HashingService : IHashingService
     {
-
-        private readonly IConfiguration _configuration;
         private readonly SaltManager _saltManager;
 
         /// <summary>
         /// Конструктор с одним параметром IConfiguration
         /// </summary>
-        /// <param name="configuration"> Объект конфигурации </param>
         /// <param name="saltManager"> Объект, предоставляющий соль </param>
-        public HashingService(IConfiguration configuration, SaltManager saltManager)
+        public HashingService(SaltManager saltManager)
         {
-            _configuration = configuration;
             _saltManager = saltManager;
         }
 

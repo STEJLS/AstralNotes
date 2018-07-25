@@ -1,19 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
-using AstralNotes.Database;
+﻿using AstralNotes.Database;
 using AstralNotes.Utils;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Logging;
 
 namespace AstralNotes
 {
+    /// <summary />
     public class Program
     {
+        /// <summary />
         public static void Main(string[] args)
         {
             var host = BuildWebHost(args);
@@ -21,7 +16,8 @@ namespace AstralNotes
             BuildWebHost(args).Run();
         }
 
-        public static IWebHost BuildWebHost(string[] args) =>
+        /// <summary />
+        private static IWebHost BuildWebHost(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
                 .UseStartup<Startup>()
                 .UseApplicationInsights()

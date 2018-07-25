@@ -14,7 +14,8 @@ namespace AstralNotes.Identity.DependencyInjection
         /// <typeparam name="TType"> Тип объектов отдаваемых провайдером </typeparam>
         /// <typeparam name="TProvider"> Тип провайдера </typeparam>
         /// <returns> <see cref="IServiceCollection"/> </returns>
-        public static IServiceCollection AddProvider<TType, TProvider>(this IServiceCollection services) where TProvider: class, IProvider<TType> where TType : class
+        public static IServiceCollection AddProvider<TType, TProvider>(this IServiceCollection services)
+            where TProvider : class, IProvider<TType> where TType : class
         {
             services.AddScoped<TProvider>();
             services.AddScoped(a => a.GetService<TProvider>().Get());

@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 namespace AstralNotes.Domain.Tests.Extensions
 {
     /// <summary>
-    /// Заполнение БД юзерам
+    /// Заполнение БД пользователями
     /// </summary>
     public class UserDataFactory
     {
@@ -28,7 +28,6 @@ namespace AstralNotes.Domain.Tests.Extensions
         public void Create(Guid? userGuid = null, string login = "login", string password = "password",
             string email = "email@email.ru")
         {
-            var guid = userGuid ?? Guid.NewGuid();
             var user = new User
             {
                 UserGuid = userGuid ?? Guid.NewGuid(),

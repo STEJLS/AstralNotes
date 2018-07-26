@@ -10,7 +10,7 @@ namespace AstralNotes.Domain.Services
         private readonly ConfigurationOptions _options;
 
         /// <summary>
-        /// Конструктор с одним параметром IConfiguration
+        /// Конструктор с одним параметром ConfigurationOptions
         /// </summary>
         /// <param name="options">Параметры конфигурации</param>
         public DicebearImageService(ConfigurationOptions options)

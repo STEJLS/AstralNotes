@@ -22,6 +22,8 @@ namespace AstralNotes.Domain
             services.AddScoped<INoteService, NoteService>();
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IAuthorizationService, AuthorizationService>();
+            services.AddScoped<IHashingService, HashingService>();
+            services.AddSingleton<SaltManager>();
             
             return services;
         }
@@ -37,11 +39,7 @@ namespace AstralNotes.Domain
             var configurationOptions = new ConfigurationOptions();
             setUp(configurationOptions);
             services.AddSingleton(configurationOptions);
-            
-            services.AddSingleton<SaltManager>();
-            
             services.AddScoped<IUniqueImageService, DicebearImageService>();
-            services.AddScoped<IHashingService, HashingService>();
             
             return services;
         }
@@ -57,11 +55,7 @@ namespace AstralNotes.Domain
             var configurationOptions = new ConfigurationOptions();
             setUp(configurationOptions);
             services.AddSingleton(configurationOptions);
-            
-            services.AddSingleton<SaltManager>();
-            
             services.AddScoped<IUniqueImageService, DefaultImageService>();
-            services.AddScoped<IHashingService, HashingService>();
            
             return services;
         }

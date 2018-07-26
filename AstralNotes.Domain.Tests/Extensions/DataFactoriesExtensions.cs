@@ -15,7 +15,8 @@ namespace AstralNotes.Domain.Tests.Extensions
         public static IServiceCollection AddDataFactories(this IServiceCollection services)
         { 
             services.AddScoped<UserDataFactory>();
-            
+            services.AddScoped<NoteDataFactory>();
+
             return services;
         }
     }

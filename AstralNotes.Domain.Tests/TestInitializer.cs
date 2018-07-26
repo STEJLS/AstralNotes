@@ -1,7 +1,9 @@
 ﻿using System;
 using AstralNotes.Database;
+using AstralNotes.Domain.Abstractions;
 using AstralNotes.Domain.Models;
 using AstralNotes.Domain.Tests.Extensions;
+using AstralNotes.Domain.Tests.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using NUnit.Framework;
@@ -39,7 +41,9 @@ namespace AstralNotes.Domain.Tests.Tests
                 options.Salt = "Salt";
                 options.ImageServiceUrl = "";
             });
-            
+
+            services.AddScoped<IUniqueImageService, StubImageService>();
+
             //DataFactories
             services.AddDataFactories();
             

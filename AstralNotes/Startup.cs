@@ -4,7 +4,6 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using AstralNotes.Domain;
-using AstralNotes.Domain.Models;
 using AstralNotes.Identity;
 using Microsoft.Extensions.Configuration;
 
@@ -12,8 +11,8 @@ namespace AstralNotes
 {
     public class Startup
     {
-        public IHostingEnvironment Environment { get; }
-        public IConfiguration Configuration { get; }
+        private IHostingEnvironment Environment { get; }
+        private IConfiguration Configuration { get; }
 
         public Startup(IHostingEnvironment env)
         {

@@ -1,21 +1,21 @@
 ﻿using System.Net.Http;
 using AstralNotes.Domain.Abstractions;
-using Microsoft.Extensions.Configuration;
+using AstralNotes.Domain.Models;
 
 namespace AstralNotes.Domain.Services
 {
     /// <inheritdoc />
     public class DicebearImageService : IUniqueImageService
     {
-        private readonly IConfiguration _configuration;
+        private readonly ConfigurationOptions _options;
 
         /// <summary>
         /// Конструктор с одним параметром IConfiguration
         /// </summary>
-        /// <param name="configuration"> Объект конфигурации</param>
-        public DicebearImageService(IConfiguration configuration)
+        /// <param name="options">Параметры конфигурации</param>
+        public DicebearImageService(ConfigurationOptions options)
         {
-            _configuration = configuration;
+            _options = options;
         }
     
         /// <inheritdoc />
@@ -27,7 +27,7 @@ namespace AstralNotes.Domain.Services
             }
             using (var client = new HttpClient())
             {
-                return client.GetByteArrayAsync($"{_configuration["ImageServiceUrl"]}/{seed}.svg").Result;
+                return client.GetByteArrayAsync($"{_options.ImageServiceUrl}/{seed}.svg").Result;
             }
         }
     }

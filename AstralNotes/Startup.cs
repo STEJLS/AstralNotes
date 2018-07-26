@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using AstralNotes.Domain;
+using AstralNotes.Domain.Models;
 using AstralNotes.Identity;
 using Microsoft.Extensions.Configuration;
 
@@ -11,10 +12,13 @@ namespace AstralNotes
 {
     public class Startup
     {
+        public IHostingEnvironment Environment { get; }
         public IConfiguration Configuration { get; }
 
         public Startup(IHostingEnvironment env)
         {
+            Environment = env;
+            
             var builder = new ConfigurationBuilder()
                 .SetBasePath(env.ContentRootPath)
                 .AddJsonFile("appsettings.json", true)
@@ -31,8 +35,26 @@ namespace AstralNotes
 
             // Identity
             services.AddSession(options => options.IdleTimeout = TimeSpan.FromHours(24));
-            services.AddAstralNotesIdentity();            
+            services.AddAstralNotesIdentity();
+            
+            //Логика
             services.AddDomainServices();
+            if (Environment.IsDevelopment())
+            {
+                services.AddDomainUtilsStub(options =>
+                {
+                    options.Salt = Configuration["Salt"];
+                });
+            }
+            else
+            {
+                services.AddDomainUtils(options =>
+                {
+                    options.Salt = Configuration["Salt"];
+                    options.ImageServiceUrl = Configuration["ImageServiceUrl"];
+                });
+            }
+            
             services.AddMvc();
         }
 

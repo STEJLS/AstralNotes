@@ -1,5 +1,5 @@
-﻿using Microsoft.Extensions.Configuration;
-using System.Text;
+﻿using System.Text;
+using AstralNotes.Domain.Models;
 
 namespace AstralNotes.Domain.Utils
 {
@@ -13,10 +13,10 @@ namespace AstralNotes.Domain.Utils
         /// <summary>
         /// Конструктор, принимающий один параметр объект конфигурации
         /// </summary>
-        /// <param name="configuration"> Объект конфигурации </param>
-        public SaltManager(IConfiguration configuration)
+        /// <param name="options">Параметры конфигурации</param>
+        public SaltManager(ConfigurationOptions options)
         {
-            _salt = Encoding.UTF8.GetBytes(configuration["Salt"]);
+            _salt = Encoding.UTF8.GetBytes(options.Salt);
         }
 
         /// <summary>

@@ -1,7 +1,8 @@
-﻿using AstralNotes.Domain.Abstractions;
+﻿using System;
+using AstralNotes.Domain.Abstractions;
+using AstralNotes.Domain.Models;
 using AstralNotes.Domain.Services;
 using AstralNotes.Domain.Utils;
-using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace AstralNotes.Domain
@@ -18,23 +19,50 @@ namespace AstralNotes.Domain
         /// <returns>Коллекция сервисов с добавленными сервисами менеджмента</returns>
         public static IServiceCollection AddDomainServices(this IServiceCollection services)
         {
-            IHostingEnvironment env = services.BuildServiceProvider().GetService<IHostingEnvironment>();
-
-            if (env.IsDevelopment())
-            {
-                services.AddScoped<IUniqueImageService, DefaultImageService>();
-            }
-
-            if (env.IsProduction())
-            {
-                services.AddScoped<IUniqueImageService, DicebearImageService>();
-            }
-
-            services.AddSingleton<SaltManager>();
             services.AddScoped<INoteService, NoteService>();
-            services.AddScoped<IHashingService, HashingService>();
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IAuthorizationService, AuthorizationService>();
+            
+            return services;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="services"></param>
+        /// <param name="setUp"></param>
+        /// <returns></returns>
+        public static IServiceCollection AddDomainUtils(this IServiceCollection services, Action<ConfigurationOptions> setUp)
+        {
+            var configurationOptions = new ConfigurationOptions();
+            setUp(configurationOptions);
+            services.AddSingleton(configurationOptions);
+            
+            services.AddSingleton<SaltManager>();
+            
+            services.AddScoped<IUniqueImageService, DicebearImageService>();
+            services.AddScoped<IHashingService, HashingService>();
+            
+            return services;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="services"></param>
+        /// <param name="setUp"></param>
+        /// <returns></returns>
+        public static IServiceCollection AddDomainUtilsStub(this IServiceCollection services, Action<ConfigurationOptions> setUp)
+        {
+            var configurationOptions = new ConfigurationOptions();
+            setUp(configurationOptions);
+            services.AddSingleton(configurationOptions);
+            
+            services.AddSingleton<SaltManager>();
+            
+            services.AddScoped<IUniqueImageService, DefaultImageService>();
+            services.AddScoped<IHashingService, HashingService>();
+           
             return services;
         }
     }

@@ -4,16 +4,16 @@ using AstralNotes.Domain.Entities;
 namespace AstralNotes.Domain.Abstractions
 {
     /// <summary>
-    /// 
+    /// Сервис, предоставляющий основной функционал для работы с авторизацией
     /// </summary>
     public interface IAuthorizationService
     {
         /// <summary>
-        /// 
+        /// Авторизация
         /// </summary>
-        /// <param name="email"></param>
-        /// <param name="password"></param>
+        /// <param name="login">Логин</param>
+        /// <param name="password">Пароль</param>
         /// <returns></returns>
-        Task<User> Authorize(string email, string password);
+        Task<User> Authorize(string login, string password);
     }
 }

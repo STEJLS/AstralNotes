@@ -48,10 +48,10 @@ namespace AstralNotes.Domain.Abstractions
         /// <summary>
         /// Редактирование заметки
         /// </summary>
+        /// <param name="noteGuid"> Идентификатор заметки </param>
         /// <param name="theme"> Новая тема заметки </param>
         /// <param name="text"> Новый текст заметки </param>
-        /// <param name="noteGuid"> Идентификатор заметки </param>
         /// <returns></returns>
-        Task EditAsync(string theme, string text, Guid noteGuid);
+        Task EditAsync(Guid noteGuid, string theme, string text);
     }
 }

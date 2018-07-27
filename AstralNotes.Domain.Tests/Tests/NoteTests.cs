@@ -85,7 +85,7 @@ namespace AstralNotes.Domain.Tests.Tests
             await _databaseContext.SaveChangesAsync();
             //act
             //assert
-            Assert.DoesNotThrowAsync(async () => await _noteService.EditAsync(_theme2, _text2, note.NoteGuid));
+            Assert.DoesNotThrowAsync(async () => await _noteService.EditAsync(note.NoteGuid, _theme2, _text2));
 
             var resultNote = await TestInitializer.Provider.GetService<DatabaseContext>().Notes.FirstOrDefaultAsync(n => n.NoteGuid == note.NoteGuid);
             Assert.NotNull(resultNote);
@@ -96,7 +96,7 @@ namespace AstralNotes.Domain.Tests.Tests
         [Test]
         public void Edit_WithNotExistingGuid_ShouldSuccess()
         {
-            var exception = Assert.ThrowsAsync<ArgumentException>(async () => await _noteService.EditAsync(_theme2, _text2, new Guid()));
+            var exception = Assert.ThrowsAsync<ArgumentException>(async () => await _noteService.EditAsync(new Guid(), _theme2, _text2));
             Assert.AreEqual("Заметка с переданным идентификатором не найдена.", exception.Message);
         }
 

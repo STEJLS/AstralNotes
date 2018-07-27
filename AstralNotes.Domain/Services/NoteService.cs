@@ -51,7 +51,7 @@ namespace AstralNotes.Domain.Services
         }
 
         /// <inheritdoc />
-        public async Task EditAsync(string theme, string text, Guid noteGuid)
+        public async Task EditAsync(Guid noteGuid, string theme, string text)
         {
             Note note = await _dbContext.Notes.FirstOrDefaultAsync(n => n.NoteGuid.Equals(noteGuid) && n.UserGuid.Equals(_sessionContext.UserGuid));
             if (note == null)

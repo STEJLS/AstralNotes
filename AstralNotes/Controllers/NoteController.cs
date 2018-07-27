@@ -90,7 +90,7 @@ namespace AstralNotes.Controllers
         {
             if (ModelState.IsValid && noteGuid != null)
             {
-                await _noteService.EditAsync(model.Theme, model.Text, (Guid) noteGuid);
+                await _noteService.EditAsync((Guid) noteGuid, model.Theme, model.Text);
                 return RedirectToAction("Index", "Home");
             }
 

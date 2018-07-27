@@ -71,9 +71,10 @@ namespace AstralNotes.Domain.Tests.Tests
         }
 
         [Test]
-        public async Task Delete_WithNotExistingGuid_ShouldSuccess()
+        public void Delete_WithNotExistingGuid_ShouldSuccess()
         {
-            Assert.DoesNotThrowAsync(async () => await _noteService.DeleteAsync(new Guid()));
+            var exception = Assert.ThrowsAsync<ArgumentException>(async () => await _noteService.DeleteAsync(new Guid()));
+            Assert.AreEqual("Заметка с переданным идентификатором не найдена.", exception.Message);
         }
 
         [Test]
@@ -93,9 +94,10 @@ namespace AstralNotes.Domain.Tests.Tests
         }
 
         [Test]
-        public async Task Edit_WithNotExistingGuid_ShouldSuccess()
+        public void Edit_WithNotExistingGuid_ShouldSuccess()
         {
-            Assert.DoesNotThrowAsync(async () => await _noteService.EditAsync(_theme2, _text2, new Guid()));
+            var exception = Assert.ThrowsAsync<ArgumentException>(async () => await _noteService.EditAsync(_theme2, _text2, new Guid()));
+            Assert.AreEqual("Заметка с переданным идентификатором не найдена.", exception.Message);
         }
 
         [Test]

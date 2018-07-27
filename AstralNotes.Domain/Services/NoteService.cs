@@ -43,25 +43,26 @@ namespace AstralNotes.Domain.Services
         public async Task DeleteAsync(Guid noteGuid)
         {
             Note note = await _dbContext.Notes.FirstOrDefaultAsync(n => n.NoteGuid.Equals(noteGuid) && n.UserGuid.Equals(_sessionContext.UserGuid));
-            if (note != null)
-            {
-                _dbContext.Notes.Remove(note);
-                await _dbContext.SaveChangesAsync();
-            }
+            if (note == null)
+                throw new ArgumentException("Заметка с переданным идентификатором не найдена.");
+                    
+            _dbContext.Notes.Remove(note);
+            await _dbContext.SaveChangesAsync();
         }
 
         /// <inheritdoc />
         public async Task EditAsync(string theme, string text, Guid noteGuid)
         {
             Note note = await _dbContext.Notes.FirstOrDefaultAsync(n => n.NoteGuid.Equals(noteGuid) && n.UserGuid.Equals(_sessionContext.UserGuid));
-            if (note != null)
-            {
-                note.Theme = theme;
-                note.Text = text;
-                note.Image = _imageService.Get(theme + text);
-                _dbContext.Update(note);
-                await _dbContext.SaveChangesAsync();
-            }
+            if (note == null)
+                throw new ArgumentException("Заметка с переданным идентификатором не найдена.");
+        
+            note.Theme = theme;
+            note.Text = text;
+            note.Image = _imageService.Get(theme + text);
+        
+            _dbContext.Update(note);
+            await _dbContext.SaveChangesAsync();
         }
 
         /// <inheritdoc />
